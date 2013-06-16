@@ -1,0 +1,18 @@
+clear
+
+echo "The Process with the most CPU Usage is: "
+
+ps aux -r | sed '2!d' | cut -c 78-
+
+echo "
+The Process with the most Memory Usage is: "
+
+ps aux -m | sed '2!d' | cut -c 78-
+
+echo -n '
+Number of Users running active processes: '; ps aux | cut -c 1-11 | sort | uniq | wc -l;
+
+USR=`whoami`
+
+echo -n '
+Number of processes that I am running: '; ps aux | grep -c $USR
