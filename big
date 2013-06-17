@@ -1,23 +1,34 @@
 #This is a program that prints some statistics about your system, like
 #the process using the most CPU and Memory, how many users are running
-#processes, and how many processes the currently logged in user is 
+#processes, and how many processes the currently logged in user is
 #running
 
-clear
-
-echo "The Process with the most CPU Usage is: "
-
-ps aux -r | sed '2!d' | cut -c 78-
-
-echo "
-The Process with the most Memory Usage is: "
-
-ps aux -m | sed '2!d' | cut -c 78-
-
-echo -n '
-Number of Users running active processes: '; ps aux | cut -c 1-11 | sort | uniq | wc -l;
-
+#Set var USR
 USR=`whoami`
 
-echo -n '
-Number of processes that I am running: '; ps aux | grep -c $USR
+#Find process with the most CPU Usage
+tmp1=`ps aux -r | sed '2!d' | cut -c 78-`
+
+#Find process with the most Memory Usage
+tmp2=`ps aux -m | sed '2!d' | cut -c 78-`
+
+#Find how many users are running active processes
+tmp3=`ps aux | cut -c 1-11 | sort | uniq | wc -l;`
+
+#Find how many processes the currently logged in user is using
+tmp4=`ps aux | grep -c $USR`
+
+
+#Display Results
+clear
+echo 'SYSTEM STATS:'
+echo '-------------'
+echo ''
+echo 'The Process with the most CPU Usage is: ' $tmp1
+echo ''
+echo 'The Process with the most Memory Usage is: ' $tmp2
+echo ''
+echo 'Number of Users running active processes: ' $tmp3
+echo ''
+echo 'Number of processes that I am running: ' $tmp4
+echo ''
