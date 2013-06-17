@@ -1,0 +1,38 @@
+#This command tells you how many hidden files, non-hidden files, 
+#directories, and sym links you currently have in the present directory
+
+#count hidden files
+tmp=`ls -lah | cut -c 55- | grep -Ec '^\.\w+' `
+
+#count non-hidden files
+tmp2=`ls -lah | cut -c 55- | grep -c '^\w'`
+
+#count directories
+tmp3=`ls -lah | grep '^d' | cut -c 55- | grep -c '\w'`
+
+#print out results
+clear
+
+echo 'DIRECTORY STATS:'
+echo '----------------
+'
+case $tmp in
+0) echo 'You have' $tmp 'hidden files or directories.' ;;
+1) echo 'You have' $tmp 'hidden file or directory.' ;;
+*) echo 'You have' $tmp 'hidden files or directories.'
+esac
+
+case $tmp2 in
+0) echo 'You have' $tmp2 'non-hidden files.' ;;
+1) echo 'You have' $tmp2 'non-hidden file.' ;;
+*) echo 'You have' $tmp2 'non-hidden files.'
+esac
+
+case $tmp3 in
+0) echo 'You have' $tmp3 'directories.' ;;
+1) echo 'You have' $tmp3 'directory.' ;;
+*) echo 'You have' $tmp3 'directories.'
+esac
+
+#A line break to neaten things up
+echo ''
